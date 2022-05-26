@@ -1,18 +1,28 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-activity-state';
+import { onMoveToForeground, onMoveToBackground } from 'react-native-activity-state';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    const subscriptionFore = onMoveToForeground(() => {
+      console.log('onMoveToForeground');
+
+    })
+    const subscriptionBack = onMoveToBackground(() => {
+      console.log('onMoveToBackground');
+
+    })
+    return () => {
+      subscriptionFore.remove();
+      subscriptionBack.remove();
+    }
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>Activity State</Text>
     </View>
   );
 }

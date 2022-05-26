@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform, DeviceEventEmitter } from 'react-native';
 
 const LINKING_ERROR =
   `The package 'react-native-activity-state' doesn't seem to be linked. Make sure: \n\n` +
@@ -9,14 +9,23 @@ const LINKING_ERROR =
 const ActivityState = NativeModules.ActivityState
   ? NativeModules.ActivityState
   : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+    {},
+    {
+      get() {
+        throw new Error(LINKING_ERROR);
+      },
+    }
+  );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return ActivityState.multiply(a, b);
+export function onMoveToForeground(callback: (data: string) => void) {
+  ActivityState;
+  return DeviceEventEmitter.addListener('onMoveToForeground', callback);
 }
+
+export function onMoveToBackground(callback: (data: string) => void) {
+  ActivityState;
+  return DeviceEventEmitter.addListener('onMoveToBackground', callback);
+}
+// export function multiply(a: number, b: number): Promise<number> {
+//   return ActivityState.multiply(a, b);
+// }

@@ -8,14 +8,27 @@ pending
 npm install react-native-activity-state
 ```
 
-## Usage
+## Usage - ONLY WORKING ON ANDROID
 
 ```js
-import { multiply } from "react-native-activity-state";
+import { onMoveToForeground, onMoveToBackground } from 'react-native-activity-state';
 
 // ...
 
-const result = await multiply(3, 7);
+React.useEffect(() => {
+    const subscriptionFore = onMoveToForeground(() => {
+      console.log('onMoveToForeground');
+
+    })
+    const subscriptionBack = onMoveToBackground(() => {
+      console.log('onMoveToBackground');
+
+    })
+    return () => {
+      subscriptionFore.remove();
+      subscriptionBack.remove();
+    }
+  }, []);
 ```
 
 ## Contributing
