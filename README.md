@@ -1,17 +1,17 @@
-# react-native-activity-state
+# ReactNative Foreground/Background Event Notifier
 
-pending
+ReactNative plugin to detect when app(not ReactNative container) goes to background or foreground.
 
 ## Installation
 
 ```sh
-npm install react-native-activity-state
+yarn add @quan2nd/react-native-activity-state
 ```
 
 ## Usage - ONLY WORKING ON ANDROID
-
+I have no experience working with IOS, I hope to get some support from the community
 ```js
-import { onMoveToForeground, onMoveToBackground } from 'react-native-activity-state';
+import { onMoveToForeground, onMoveToBackground } from '@quan2nd/react-native-activity-state';
 
 // ...
 
